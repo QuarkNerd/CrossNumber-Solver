@@ -20,6 +20,7 @@ export default function Grid() {
               x={x}
               y={y}
               dispatch={dispatch}
+              clueIndex={3}
             ></Square>
           ))}
         </div>

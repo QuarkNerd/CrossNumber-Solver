@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import styles from "./App.module.scss";
+import "./App.scss";
 import Grid from "./components/Grid/Grid";
 // import { size } from './constants';
 

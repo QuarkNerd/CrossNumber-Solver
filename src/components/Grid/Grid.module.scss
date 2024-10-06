@@ -1,6 +1,13 @@
 .grid {
+    display: inline-block;
+    border: solid black 2px;
 }
 
 .row {
     display: flex;
+    border: solid black 1px;
+}
+
+.row > *:not(:nth-child(1)) {
+    border-left: solid black 1px;
 }

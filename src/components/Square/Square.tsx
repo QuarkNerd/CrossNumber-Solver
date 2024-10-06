@@ -1,14 +1,14 @@
 import styles from "./Square.module.scss";
 import { toggleSelcted } from "../../contexts/Selected/SelectedContextProvider";
-import { Dispatch, useCallback } from "react";
+import { Dispatch } from "react";
 import React from "react";
 
 interface Props {
   x: number;
   y: number;
   isSelected: boolean;
+  clueIndex: number;
   dispatch: Dispatch<any>;
-  // dis
 }
 
 export default React.memo(function Square({
@@ -16,11 +16,14 @@ export default React.memo(function Square({
   y,
   isSelected,
   dispatch,
+  clueIndex,
 }: Props) {
   return (
     <div
       className={styles.square + " " + (isSelected ? styles.selected : "")}
       onClick={() => dispatch(toggleSelcted(x, y))}
-    ></div>
+    >
+      <span className={styles.clueIndex}>{clueIndex}</span>
+    </div>
   );
 });
