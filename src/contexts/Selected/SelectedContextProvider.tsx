@@ -1,4 +1,4 @@
-import { createContext, Dispatch, PropsWithChildren } from "react";
+import { createContext, Dispatch, PropsWithChildren, useContext } from "react";
 import { useImmerReducer } from "use-immer";
 
 const size = 12;
@@ -6,8 +6,8 @@ const initialSelected = Array(size)
   .fill(undefined)
   .map(() => Array(size).fill(false));
 
-export const SelectedContext = createContext(initialSelected);
-export const SelectedDispatchContext = createContext<Dispatch<SelectedAction>>(
+const SelectedContext = createContext<SelectedMap>(initialSelected);
+const SelectedDispatchContext = createContext<Dispatch<SelectedAction>>(
   null as unknown as Dispatch<SelectedAction>
 );
 
@@ -25,6 +25,15 @@ const selectedReducer = (initial: SelectedMap, action: SelectedAction) => {
       break;
   }
 };
+
+export const toggleSelcted = (x: number, y: number): SelectedAction => ({
+  type: "TOGGLE",
+  x,
+  y,
+});
+
+export const useSelected = () => useContext(SelectedContext);
+export const useSelectedDispatch = () => useContext(SelectedDispatchContext);
 
 export default function SelectedContextProvider({
   children,
