@@ -1,27 +1,26 @@
 import styles from "./Square.module.scss";
-import {
-  toggleSelcted,
-  useSelected,
-  useSelectedDispatch,
-} from "../../contexts/Selected/SelectedContextProvider";
-import { useCallback } from "react";
+import { toggleSelcted } from "../../contexts/Selected/SelectedContextProvider";
+import { Dispatch, useCallback } from "react";
+import React from "react";
 
 interface Props {
   x: number;
   y: number;
+  isSelected: boolean;
+  dispatch: Dispatch<any>;
+  // dis
 }
 
-export default function Square({ x, y }: Props) {
-  const dispatch = useSelectedDispatch();
-  const selected = useSelected();
-  const click = useCallback(
-    () => dispatch(toggleSelcted(x, y)),
-    [x, y, dispatch]
-  );
+export default React.memo(function Square({
+  x,
+  y,
+  isSelected,
+  dispatch,
+}: Props) {
   return (
     <div
-      className={styles.square + " " + (selected[y][x] ? styles.selected : "")}
-      onClick={click}
+      className={styles.square + " " + (isSelected ? styles.selected : "")}
+      onClick={() => dispatch(toggleSelcted(x, y))}
     ></div>
   );
-}
+});
