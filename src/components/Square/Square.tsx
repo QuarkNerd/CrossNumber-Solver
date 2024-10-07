@@ -27,3 +27,8 @@ export default React.memo(function Square({
     </div>
   );
 });
+
+// TODO adapt SelectedContext to provide active and maybe direct information
+// use html button to disable buttons or maybe floating x that only appears when hover? the 2nd one
+// if context is seperated it will reduce recalculations? experiment
+// zoom and css fix

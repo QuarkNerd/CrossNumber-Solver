@@ -1,33 +1,33 @@
 import { createContext, Dispatch, PropsWithChildren, useContext } from "react";
 import { useImmerReducer } from "use-immer";
-
+import { Coor } from "../../types";
 const size = 12;
-const initialSelected = Array(size)
+const initialSelected: SelectedMap = Array(size)
   .fill(undefined)
   .map(() => Array(size).fill(false));
 
-const SelectedContext = createContext<SelectedMap>(initialSelected);
-const SelectedDispatchContext = createContext<Dispatch<SelectedAction>>(
+const TOGGLE = "TOGGLE";
+const SelectedContext = createContext(initialSelected);
+const SelectedDispatchContext = createContext(
   null as unknown as Dispatch<SelectedAction>
 );
 
 type SelectedMap = boolean[][];
 type SelectedAction = {
-  type: "TOGGLE";
-  x: number;
-  y: number;
-};
+  type: typeof TOGGLE;
+} & Coor;
 
+// todo add a change size
 const selectedReducer = (initial: SelectedMap, action: SelectedAction) => {
   switch (action.type) {
-    case "TOGGLE":
+    case TOGGLE:
       initial[action.y][action.x] = !initial[action.y][action.x];
       break;
   }
 };
 
 export const toggleSelcted = (x: number, y: number): SelectedAction => ({
-  type: "TOGGLE",
+  type: TOGGLE,
   x,
   y,
 });
