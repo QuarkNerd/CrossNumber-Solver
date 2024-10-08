@@ -1,5 +1,5 @@
 import styles from "./Square.module.scss";
-import { toggleSelcted } from "../../contexts/Selected/SelectedContextProvider";
+import { toggleSelcted } from "../../contexts/Selected/SelectedContext";
 import { Dispatch } from "react";
 import React from "react";
 
@@ -23,7 +23,7 @@ export default React.memo(function Square({
       className={styles.square + " " + (isSelected ? styles.selected : "")}
       onClick={() => dispatch(toggleSelcted(x, y))}
     >
-      <span className={styles.clueIndex}>{clueIndex}</span>
+      <p className={styles.clueIndex}>{clueIndex}</p>
     </div>
   );
 });
