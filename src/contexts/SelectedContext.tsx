@@ -1,5 +1,5 @@
-import { Coor } from "../../types";
-import createContextSlice from "../CreateContextSlice/CreateContextSlice";
+import { Coor } from "../types";
+import createContextSlice from "./CreateContextSlice";
 const size = 12;
 const initialSelected: SelectedMap = Array(size)
   .fill(undefined)

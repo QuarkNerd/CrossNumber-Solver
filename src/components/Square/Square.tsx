@@ -1,5 +1,5 @@
 import styles from "./Square.module.scss";
-import { toggleSelcted } from "../../contexts/Selected/SelectedContext";
+import { toggleSelcted } from "../../contexts/SelectedContext";
 import { Dispatch } from "react";
 import React from "react";
 
@@ -32,3 +32,7 @@ export default React.memo(function Square({
 // use html button to disable buttons or maybe floating x that only appears when hover? the 2nd one
 // if context is seperated it will reduce recalculations? experiment
 // zoom and css fix
+
+// ValuesContext
+//CalculationsCOntext -- only needed for saving
+// if massive setter is used for saving. then maybe dont need size context, just keep Selected as i

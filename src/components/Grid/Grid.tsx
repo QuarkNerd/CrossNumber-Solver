@@ -3,7 +3,7 @@ import Square from "../Square/Square";
 import {
   useSelected,
   useSelectedDispatch,
-} from "../../contexts/Selected/SelectedContext";
+} from "../../contexts/SelectedContext";
 
 export default function Grid() {
   const selected = useSelected();
