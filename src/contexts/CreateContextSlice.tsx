@@ -1,3 +1,5 @@
+// Creates a slice in context based on state and reducer, similar to redux toolkit but a lot more basic, mainly done to teach myself complex TS
+
 import { Dispatch, createContext, PropsWithChildren, useContext } from "react";
 import { ImmerReducer, useImmerReducer } from "use-immer";
 
