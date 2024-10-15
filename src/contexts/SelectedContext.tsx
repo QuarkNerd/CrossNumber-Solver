@@ -29,5 +29,8 @@ export const toggleSelcted = (x: number, y: number): SelectedAction => ({
 
 const slice = createContextSlice("selected", initialSelected, selectedReducer);
 
-export const { useSelected, useSelectedDispatch, SelectedContextProvider } =
-  slice;
+export const {
+  useSelectedSelector,
+  useSelectedDispatch,
+  SelectedContextProvider,
+} = slice;

@@ -58,4 +58,5 @@ export const toggleValue = (key: string, value: Digit): ValuesAction => ({
 
 const slice = createContextSlice("value", {}, selectedReducer);
 
-export const { useValue, useValueDispatch, ValueContextProvider } = slice;
+export const { useValueSelector, useValueDispatch, ValueContextProvider } =
+  slice;
