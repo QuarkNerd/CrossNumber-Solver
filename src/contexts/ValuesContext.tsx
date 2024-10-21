@@ -4,18 +4,18 @@ const TOGGLE_VALUE = "TOGGLE_VALUE";
 const TOGGLE_ENABLED = "TOGGLE_ENABLED";
 const DISABLED = "DISABLED";
 
-type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
 type ValueMap = { [key: string]: Set<Digit> | typeof DISABLED | undefined };
 type ValuesAction =
   | {
       type: "TOGGLE_VALUE";
       value: Digit;
-      squareKeys: string[];
+      squareKeys: Set<string>;
     }
   | {
       type: "TOGGLE_ENABLED";
-      squareKeys: string[];
+      squareKeys: Set<string>;
     };
 
 const valuesReducer = (initial: ValueMap, action: ValuesAction) => {
@@ -46,14 +46,14 @@ const valuesReducer = (initial: ValueMap, action: ValuesAction) => {
   });
 };
 
-const slice = createContextSlice("value", {}, valuesReducer);
+const slice = createContextSlice("value", {} as ValueMap, valuesReducer);
 
 export const { useValueSelector, ValueContextProvider } = slice;
 const useValueDispatch = slice.useValueDispatch;
 
 export const useToggleEnable = () => {
   const dispatch = useValueDispatch();
-  return (keys: string[]) =>
+  return (keys: Set<string>) =>
     dispatch({
       type: TOGGLE_ENABLED,
       squareKeys: keys,
@@ -62,7 +62,7 @@ export const useToggleEnable = () => {
 
 export const useToggleValue = () => {
   const dispatch = useValueDispatch();
-  return (keys: string[], value: Digit) =>
+  return (keys: Set<string>, value: Digit) =>
     dispatch({
       type: TOGGLE_VALUE,
       squareKeys: keys,

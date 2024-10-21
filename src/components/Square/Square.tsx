@@ -5,6 +5,8 @@ import {
 } from "../../contexts/SelectedContext";
 import React from "react";
 import { getKey } from "../../utils";
+import { useValueSelector } from "../../contexts/ValuesContext";
+import classNames from "classnames";
 
 interface Props {
   x: number;
@@ -14,13 +16,25 @@ interface Props {
 export default React.memo(function Square({ x, y }: Props) {
   const key = getKey({ x, y });
   const isSelected = useSelectedSelector((sel) => sel.has(key));
+  const value = useValueSelector((sel) => sel[key]);
   const toggle = useToggleSelected(key);
+  const singleValue = value instanceof Set && value.size === 1;
   return (
     <div
-      className={styles.square + " " + (isSelected ? styles.selected : "")}
+      className={classNames(styles.square, {
+        [styles.selected]: isSelected,
+        [styles.disabled]: value === "DISABLED",
+      })}
       onClick={toggle}
     >
       <p className={styles.clueIndex}>{2}</p>
+      <div
+        className={classNames(styles.values, {
+          [styles.singleValue]: singleValue,
+        })}
+      >
+        {value instanceof Set ? [...value].sort() : ""}
+      </div>
     </div>
   );
 });

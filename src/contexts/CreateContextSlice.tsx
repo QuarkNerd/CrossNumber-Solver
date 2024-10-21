@@ -20,7 +20,7 @@ type ContextSlice<Name extends string, State, Action> = {
 } & {
   [key in `use${Capitalize<Name & string>}Dispatch`]: () => Dispatch<Action>;
 } & {
-  [key in `use${Capitalize<Name & string>}GetCurrentValue`]: () => State;
+  [key in `use${Capitalize<Name & string>}GetCurrentValue`]: () => () => State;
 } & {
   [key in `${Capitalize<Name & string>}ContextProvider`]: (
     props: PropsWithChildren

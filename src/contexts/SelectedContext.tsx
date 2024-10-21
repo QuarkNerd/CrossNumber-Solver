@@ -19,6 +19,7 @@ export const {
   useSelectedSelector,
   useSelectedDispatch,
   SelectedContextProvider,
+  useSelectedGetCurrentValue,
 } = slice;
 
 export const useToggleSelected = (keys: string[] | string) => {
