@@ -1,31 +1,17 @@
-import { Coor } from "../types";
 import createContextSlice from "./CreateContextSlice";
-const size = 12;
-const initialSelected: SelectedMap = Array(size)
-  .fill(undefined)
-  .map(() => Array(size).fill(false));
+const initialSelected: SelectedCells = new Set();
 
-const TOGGLE = "TOGGLE";
+type SelectedCells = Set<string>;
 
-type SelectedMap = boolean[][];
-type SelectedAction = {
-  type: typeof TOGGLE;
-} & Coor;
-
-// TODO add a change size
-const selectedReducer = (initial: SelectedMap, action: SelectedAction) => {
-  switch (action.type) {
-    case TOGGLE:
-      initial[action.y][action.x] = !initial[action.y][action.x];
-      break;
-  }
+const selectedReducer = (initial: SelectedCells, action: string[]) => {
+  action.forEach((st) => {
+    if (initial.has(st)) {
+      initial.delete(st);
+    } else {
+      initial.add(st);
+    }
+  });
 };
-
-export const toggleSelcted = (x: number, y: number): SelectedAction => ({
-  type: TOGGLE,
-  x,
-  y,
-});
 
 const slice = createContextSlice("selected", initialSelected, selectedReducer);
 
@@ -34,3 +20,9 @@ export const {
   useSelectedDispatch,
   SelectedContextProvider,
 } = slice;
+
+export const useToggleSelected = (keys: string[] | string) => {
+  const keysArray = Array.isArray(keys) ? keys : [keys];
+  const dispatch = useSelectedDispatch();
+  return () => dispatch(keysArray);
+};

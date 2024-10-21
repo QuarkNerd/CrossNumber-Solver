@@ -1,4 +1,4 @@
-// Creates a slice in context based on state and reducer, similar to redux toolkit but a lot more basic, mainly done to teach myself complex TS
+// Creates a slice in context based on state and reducer, similar to redux toolkit but a lot more basic, mainly done to teach myself complex TS, theres many better ways to make this whole thing and app in general
 
 import {
   Dispatch,
@@ -19,6 +19,8 @@ type ContextSlice<Name extends string, State, Action> = {
   ) => T;
 } & {
   [key in `use${Capitalize<Name & string>}Dispatch`]: () => Dispatch<Action>;
+} & {
+  [key in `use${Capitalize<Name & string>}GetCurrentValue`]: () => State;
 } & {
   [key in `${Capitalize<Name & string>}ContextProvider`]: (
     props: PropsWithChildren
@@ -87,10 +89,16 @@ export default function createContextSlice<Name extends string, State, Action>(
     return selectedRef.current;
   }
 
+  function useGetCurrentValue() {
+    const store = useContext(Context);
+    return store.getValue;
+  }
+
   const cName = capitalise(name);
 
   return {
     [`use${cName}Selector`]: useSelector,
+    [`use${cName}GetCurrentValue`]: useGetCurrentValue,
     [`use${cName}Dispatch`]: () => {
       const { dispatch } = useContext(Context);
       return dispatch;

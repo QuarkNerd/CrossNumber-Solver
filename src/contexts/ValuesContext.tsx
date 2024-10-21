@@ -1,4 +1,3 @@
-import { getKey } from "../utils";
 import createContextSlice from "./CreateContextSlice";
 
 const TOGGLE_VALUE = "TOGGLE_VALUE";
@@ -12,51 +11,63 @@ type ValuesAction =
   | {
       type: "TOGGLE_VALUE";
       value: Digit;
-      squareKey: string;
+      squareKeys: string[];
     }
   | {
       type: "TOGGLE_ENABLED";
-      squareKey: string;
+      squareKeys: string[];
     };
 
-const selectedReducer = (initial: ValueMap, action: ValuesAction) => {
-  switch (action.type) {
-    case TOGGLE_ENABLED:
-      if (initial[action.squareKey] === DISABLED) {
-        delete initial[action.squareKey];
-        return;
-      }
-      initial[action.squareKey] = DISABLED;
-      break;
-    case TOGGLE_VALUE:
-      if (initial[action.squareKey] === DISABLED) {
-        return;
-      }
-      if (initial[action.squareKey] === undefined) {
-        initial[action.squareKey] = new Set([action.value]);
-        return;
-      }
-      const set = initial[action.squareKey] as Set<Digit>;
-      if (set.has(action.value)) {
-        set.delete(action.value);
-      } else {
-        set.add(action.value);
-      }
-  }
+const valuesReducer = (initial: ValueMap, action: ValuesAction) => {
+  action.squareKeys.forEach((sqKey) => {
+    switch (action.type) {
+      case TOGGLE_ENABLED:
+        if (initial[sqKey] === DISABLED) {
+          delete initial[sqKey];
+          return;
+        }
+        initial[sqKey] = DISABLED;
+        break;
+      case TOGGLE_VALUE:
+        if (initial[sqKey] === DISABLED) {
+          return;
+        }
+        if (initial[sqKey] === undefined) {
+          initial[sqKey] = new Set([action.value]);
+          return;
+        }
+        const set = initial[sqKey] as Set<Digit>;
+        if (set.has(action.value)) {
+          set.delete(action.value);
+        } else {
+          set.add(action.value);
+        }
+    }
+  });
 };
 
-export const toggleEnabled = (key: string): ValuesAction => ({
-  type: TOGGLE_ENABLED,
-  squareKey: key,
-});
+const slice = createContextSlice("value", {}, valuesReducer);
 
-export const toggleValue = (key: string, value: Digit): ValuesAction => ({
-  type: TOGGLE_VALUE,
-  squareKey: key,
-  value,
-});
+export const { useValueSelector, ValueContextProvider } = slice;
+const useValueDispatch = slice.useValueDispatch;
 
-const slice = createContextSlice("value", {}, selectedReducer);
+export const useToggleEnable = () => {
+  const dispatch = useValueDispatch();
+  return (keys: string[]) =>
+    dispatch({
+      type: TOGGLE_ENABLED,
+      squareKeys: keys,
+    });
+};
 
-export const { useValueSelector, useValueDispatch, ValueContextProvider } =
-  slice;
+export const useToggleValue = () => {
+  const dispatch = useValueDispatch();
+  return (keys: string[], value: Digit) =>
+    dispatch({
+      type: TOGGLE_VALUE,
+      squareKeys: keys,
+      value,
+    });
+};
+
+slice.useValueDispatch;
