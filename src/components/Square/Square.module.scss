@@ -6,7 +6,7 @@
 }
 
 .selected {
-    background-color: yellow;
+    box-shadow:inset 0px 0px 0px 1px #f00;
 }
 
 .disabled {
@@ -28,11 +28,11 @@
     text-wrap: wrap;
     overflow-wrap: break-word;
     font-size: 15px;
+    text-align: center;
 }
 
 .values.singleValue {
     margin-top: 0px;
-    text-align: center;
     vertical-align: middle;
     font-size: 40px;
 }
