@@ -9,6 +9,13 @@ export function getLetter(y: number) {
   return String.fromCharCode(65 + y);
 }
 
+const spaceNewLine = "\n     ";
+
 export function getFunctionString(validator: Validator) {
-  return `(${validator.inputs.join(", ")}) => ${validator.validatePredicate}`;
+  return `(${validator.inputs.join(
+    ", "
+  )}) =>${spaceNewLine}${validator.validatePredicate.replaceAll(
+    "\n",
+    spaceNewLine
+  )}`;
 }

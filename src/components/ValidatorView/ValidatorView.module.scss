@@ -3,19 +3,21 @@
     padding: 4px;
     margin-top: 10px;
     position: relative;
+
+    white-space: pre-wrap;
 }
 
 .view.selected {
     background-color: red;
 }
 
-.view button {
+.view .delete {
     display: none;
     position: absolute;
     right: 5px;
     top: 2px;
 }
 
-.view:hover button {
+.view:hover .delete {
     display: inline-block
 }

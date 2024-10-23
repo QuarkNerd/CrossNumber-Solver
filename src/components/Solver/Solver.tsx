@@ -21,12 +21,13 @@ export default function Solver() {
         value={newFunction}
       ></textarea>
       <button
-        onClick={() =>
+        onClick={() => {
           setValidators([
             ...validitors,
             { inputs: sel, validatePredicate: newFunction },
-          ])
-        }
+          ]);
+          setNewFunction("");
+        }}
       >
         Add
       </button>

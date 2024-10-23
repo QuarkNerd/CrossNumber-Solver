@@ -17,7 +17,9 @@ export default function ValidatorView({
   return (
     <div className={classNames(styles.view, { [styles.selected]: selected })}>
       <div>{getFunctionString(validator)}</div>
-      <button onClick={onDelete}>Delete</button>
+      <button className={styles.delete} onClick={onDelete}>
+        Delete
+      </button>
     </div>
   );
 }
