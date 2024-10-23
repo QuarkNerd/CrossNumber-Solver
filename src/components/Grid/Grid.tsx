@@ -7,6 +7,7 @@ import {
   useToggleEnable,
   useToggleValue,
 } from "../../contexts/ValuesContext";
+import { getLetter } from "../../utils";
 
 export default function Grid() {
   const indexes = [...Array(12).keys()];
@@ -30,8 +31,19 @@ export default function Grid() {
   }, []);
   return (
     <div className={styles.grid}>
+      <div key={-1} className={styles.row}>
+        <div className={styles.corner}></div>
+        {indexes.map((x) => (
+          <div className={styles.columnKey} key={x}>
+            {x}
+          </div>
+        ))}
+      </div>
       {indexes.map((y) => (
         <div key={y} className={styles.row}>
+          <div className={styles.rowKey} key={-1}>
+            {getLetter(y)}
+          </div>
           {indexes.map((x) => (
             <Square key={x} x={x} y={y}></Square>
           ))}

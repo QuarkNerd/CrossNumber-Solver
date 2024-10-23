@@ -1,13 +1,43 @@
+$combined-border: solid black 3px;
+$base-border: solid black 2px;
+$thin-border: solid black 1px;
+
 .grid {
     display: inline-block;
-    border: solid black 2px;
+    border: $base-border;
+    border-top: none;
+    border-left: none;
 }
 
 .row {
     display: flex;
-    border: solid black 1px;
+    border: $thin-border;
+    border-left: none;
+    border-top: none;
 }
 
 .row > *:not(:nth-child(1)) {
-    border-left: solid black 1px;
+    border-left: $thin-border
+}
+
+.columnKey {
+    width: 45px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: $base-border;
+}
+
+.rowKey {
+    height: 45px;
+    line-height: 45px;
+    width: 20px;
+    text-align: center;
+    font-weight: bold;
+    border-right: $base-border;
+}
+
+.corner {
+    width: 20px;
+    border-right: $base-border;
+    border-bottom: $base-border;
 }
