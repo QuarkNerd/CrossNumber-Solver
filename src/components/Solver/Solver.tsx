@@ -35,6 +35,7 @@ export default function Solver() {
           <ValidatorView
             validator={v}
             key={i}
+            selected={sel.join("") === v.inputs.join("")}
             onDelete={() => setValidators(validitors.filter((x) => x != v))}
           />
         ))}

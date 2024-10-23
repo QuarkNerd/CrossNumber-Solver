@@ -5,6 +5,10 @@
     position: relative;
 }
 
+.view.selected {
+    background-color: red;
+}
+
 .view button {
     display: none;
     position: absolute;
