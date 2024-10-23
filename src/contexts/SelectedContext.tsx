@@ -1,9 +1,7 @@
 import createContextSlice from "./CreateContextSlice";
-const initialSelected: SelectedCells = new Set();
+const initialSelected: Set<string> = new Set();
 
-type SelectedCells = Set<string>;
-
-const selectedReducer = (initial: SelectedCells, action: string[]) => {
+const selectedReducer = (initial: Set<string>, action: string[]) => {
   action.forEach((st) => {
     if (initial.has(st)) {
       initial.delete(st);

@@ -1,0 +1,17 @@
+.view {
+    border: black solid 2px;
+    padding: 4px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.view button {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 2px;
+}
+
+.view:hover button {
+    display: inline-block
+}
