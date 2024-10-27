@@ -5,7 +5,7 @@ import {
 } from "../../contexts/SelectedContext";
 import React from "react";
 import { getKey } from "../../utils";
-import { useClueNumber, useValueSelector } from "../../contexts/ValuesContext";
+import { useClueNumber, useValuesSelector } from "../../contexts/ValuesContext";
 import classNames from "classnames";
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 export default React.memo(function Square({ x, y }: Props) {
   const key = getKey({ x, y });
   const isSelected = useSelectedSelector((sel) => sel.has(key));
-  const value = useValueSelector((sel) => sel[key]);
+  const value = useValuesSelector((sel) => sel[key]);
   const toggle = useToggleSelected(key);
   const singleValue = value instanceof Set && value.size === 1;
   const clueNumber = useClueNumber(key);

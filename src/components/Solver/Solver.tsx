@@ -23,14 +23,15 @@ export default function Solver() {
       <button
         onClick={() => {
           setValidators([
-            ...validitors,
             { inputs: sel, validatePredicate: newFunction },
+            ...validitors,
           ]);
           setNewFunction("");
         }}
       >
         Add
       </button>
+      <button onClick={solve}>Execute</button>
       <div className={styles.validators}>
         {validitors.map((v, i) => (
           <ValidatorView

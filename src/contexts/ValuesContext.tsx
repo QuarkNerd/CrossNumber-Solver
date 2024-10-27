@@ -48,13 +48,13 @@ const valuesReducer = (initial: ValueMap, action: ValuesAction) => {
   });
 };
 
-const slice = createContextSlice("value", {} as ValueMap, valuesReducer);
+const slice = createContextSlice("values", {} as ValueMap, valuesReducer);
 
-export const { useValueSelector, ValueContextProvider } = slice;
-const useValueDispatch = slice.useValueDispatch;
+export const { useValuesSelector, ValuesContextProvider } = slice;
+const useValueDispatch = slice.useValuesDispatch;
 
 export const useClueNumber = (key: string) =>
-  useValueSelector((st) => getClueStartingPositions(12, st).indexOf(key));
+  useValuesSelector((st) => getClueStartingPositions(12, st).indexOf(key));
 
 export const useToggleEnable = () => {
   const dispatch = useValueDispatch();
