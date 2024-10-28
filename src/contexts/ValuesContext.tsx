@@ -8,7 +8,9 @@ const DISABLED = "DISABLED";
 
 export type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-type ValueMap = { [key: string]: Set<Digit> | typeof DISABLED | undefined };
+export type ValueMap = {
+  [key: string]: Set<Digit> | typeof DISABLED | undefined;
+};
 type ValuesAction =
   | {
       type: "TOGGLE_VALUE";
@@ -50,7 +52,11 @@ const valuesReducer = (initial: ValueMap, action: ValuesAction) => {
 
 const slice = createContextSlice("values", {} as ValueMap, valuesReducer);
 
-export const { useValuesSelector, ValuesContextProvider } = slice;
+export const {
+  useValuesSelector,
+  ValuesContextProvider,
+  useValuesGetCurrentValue,
+} = slice;
 const useValueDispatch = slice.useValuesDispatch;
 
 export const useClueNumber = (key: string) =>

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { getFunctionString } from "../../utils";
-import { Validator } from "../Solver/Solver";
 import styles from "./ValidatorView.module.scss";
+import { Validator } from "../../solver";
 
 interface Props {
   validator: Validator;

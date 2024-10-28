@@ -1,4 +1,4 @@
-import { Validator } from "./components/Solver/Solver";
+import { PartialValidator } from "./solver";
 import { Coor } from "./types";
 
 export function getKey(coor: Coor) {
@@ -11,10 +11,10 @@ export function getLetter(y: number) {
 
 const spaceNewLine = "\n     ";
 
-export function getFunctionString(validator: Validator) {
+export function getFunctionString(validator: PartialValidator) {
   return `(${validator.inputs.join(
     ", "
-  )}) =>${spaceNewLine}${validator.validatePredicate.replaceAll(
+  )}) =>${spaceNewLine}${validator.predicateView.replaceAll(
     "\n",
     spaceNewLine
   )}`;
