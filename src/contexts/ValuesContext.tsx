@@ -133,11 +133,3 @@ function getClueStartingPositions(gridSize: number, map: ValueMap) {
   cache[hashed] = clueStarts;
   return clueStarts;
 }
-
-function parse(local: string) {
-  const o: any = {};
-  for (const [key, value] of Object.entries(JSON.parse(local))) {
-    o[key] = Array.isArray(value) ? new Set([...value]) : value;
-  }
-  return o as ValueMap;
-}
