@@ -5,6 +5,7 @@ import { getKey } from "../utils";
 const TOGGLE_VALUE = "TOGGLE_VALUE";
 const TOGGLE_ENABLED = "TOGGLE_ENABLED";
 const DISABLED = "DISABLED";
+const SET_WHOLE = "SET_WHOLE";
 
 export type Digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
@@ -20,9 +21,22 @@ type ValuesAction =
   | {
       type: "TOGGLE_ENABLED";
       squareKeys: Set<string>;
+    }
+  | {
+      type: "SET_WHOLE";
+      value: ValueMap;
     };
 
 const valuesReducer = (initial: ValueMap, action: ValuesAction) => {
+  if (action.type === "SET_WHOLE") {
+    for (const key in initial) {
+      delete initial[key];
+    }
+    for (const key in action.value) {
+      initial[key] = action.value[key];
+    }
+    return;
+  }
   action.squareKeys.forEach((sqKey) => {
     switch (action.type) {
       case TOGGLE_ENABLED:
@@ -81,6 +95,15 @@ export const useToggleValue = () => {
     });
 };
 
+export const useSetWhole = () => {
+  const dispatch = useValueDispatch();
+  return (value: ValueMap) =>
+    dispatch({
+      type: SET_WHOLE,
+      value,
+    });
+};
+
 const cache: { [key: string]: string[] } = {};
 
 function getClueStartingPositions(gridSize: number, map: ValueMap) {
@@ -109,4 +132,12 @@ function getClueStartingPositions(gridSize: number, map: ValueMap) {
   }
   cache[hashed] = clueStarts;
   return clueStarts;
+}
+
+function parse(local: string) {
+  const o: any = {};
+  for (const [key, value] of Object.entries(JSON.parse(local))) {
+    o[key] = Array.isArray(value) ? new Set([...value]) : value;
+  }
+  return o as ValueMap;
 }
