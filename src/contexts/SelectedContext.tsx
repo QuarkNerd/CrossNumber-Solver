@@ -1,8 +1,22 @@
 import createContextSlice from "./CreateContextSlice";
 const initialSelected: Set<string> = new Set();
 
-const selectedReducer = (initial: Set<string>, action: string[]) => {
-  action.forEach((st) => {
+const TOGGLE = "TOGGLE";
+const RESET = "RESET";
+
+type Action =
+  | {
+      type: "TOGGLE";
+      payload: string[];
+    }
+  | { type: "RESET" };
+
+const selectedReducer = (initial: Set<string>, action: Action) => {
+  if (action.type === RESET) {
+    initial.clear();
+    return;
+  }
+  action.payload.forEach((st) => {
     if (initial.has(st)) {
       initial.delete(st);
     } else {
@@ -23,5 +37,10 @@ export const {
 export const useToggleSelected = (keys: string[] | string) => {
   const keysArray = Array.isArray(keys) ? keys : [keys];
   const dispatch = useSelectedDispatch();
-  return () => dispatch(keysArray);
+  return () => dispatch({ type: TOGGLE, payload: keysArray });
+};
+
+export const useResetSelected = () => {
+  const dispatch = useSelectedDispatch();
+  return () => dispatch({ type: RESET });
 };

@@ -1,7 +1,10 @@
 import styles from "./Grid.module.scss";
 import Square from "../Square/Square";
 import { useEffect } from "react";
-import { useSelectedGetCurrentValue } from "../../contexts/SelectedContext";
+import {
+  useResetSelected,
+  useSelectedGetCurrentValue,
+} from "../../contexts/SelectedContext";
 import {
   Digit,
   useToggleEnable,
@@ -14,11 +17,16 @@ export default function Grid() {
   const getSelected = useSelectedGetCurrentValue();
   const toggleValue = useToggleValue();
   const toggleEnable = useToggleEnable();
+  const resetSelected = useResetSelected();
   useEffect(() => {
     const callback = (event: KeyboardEvent) => {
       const val = getSelected();
       if (event.key === "x") {
         toggleEnable(val);
+        return;
+      }
+      if (event.key === "y") {
+        resetSelected();
         return;
       }
       const int = parseInt(event.key);
