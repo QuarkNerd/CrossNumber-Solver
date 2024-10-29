@@ -3,16 +3,16 @@ $thin-border: solid black 1px;
 
 .grid {
     display: inline-block;
-    border: $base-border;
-    border-top: none;
-    border-left: none;
 }
 
 .row {
     display: flex;
-    border: $thin-border;
-    border-left: none;
-    border-top: none;
+    border-right: $base-border;
+    border-bottom: $thin-border;
+}
+
+.row:last-of-type {
+    border-bottom: $base-border;
 }
 
 .row > *:not(:nth-child(1)) {
