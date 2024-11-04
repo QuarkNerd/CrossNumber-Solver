@@ -14,7 +14,6 @@ export function solve(values: ValueMap, testList: Validator[]) {
   if (!tests.length) return;
   const parsedValues = parse(values);
   const test = tests.sort((a, b) => a.inputs.length - b.inputs.length)[0]!;
-  console.log(test);
   const key = test.inputs[0];
 
   let solutions = parsedValues[key].map((v) => ({ [key]: v }));
@@ -58,7 +57,6 @@ function expandByTest(
   sol: { [key: string]: number },
   possibleValues: { [key: string]: number[] }
 ): { [key: string]: number }[] {
-  console.log(missingKeyList);
   let potentialSolutions = [sol];
   for (const missingKey of missingKeyList) {
     potentialSolutions = potentialSolutions.flatMap((s) =>
